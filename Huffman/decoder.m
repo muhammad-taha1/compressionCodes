@@ -16,17 +16,17 @@ function data_HAT = decoder(compr_strng)
             dataDim = length(compr_strng); 
             data_HAT = [data_HAT, decomp_symb]; 
         else 
-            if compr_strng(2) == '1'
-              % Case where the string has 01 at start.
+            if compr_strng(2) == '0'
+              % Case where the string has 00 at start.
               decomp_symb = 0; 
               compr_strng = compr_strng(3: length(compr_strng));
               dataDim = length(compr_strng); 
               data_HAT = [data_HAT, decomp_symb]; 
             else
                % The only remaining case according to our coded values.
-               % Case where the string has 001 at start.
+               % Case where the string has 01 at start.
                decomp_symb = 2;
-               compr_strng = compr_strng(4: length(compr_strng));
+               compr_strng = compr_strng(3: length(compr_strng));
                dataDim = length(compr_strng); 
                data_HAT = [data_HAT, decomp_symb]; 
             end 
