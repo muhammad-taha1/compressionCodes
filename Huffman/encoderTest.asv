@@ -6,7 +6,7 @@ count = [];
 % Perform encoding and decoding 1000 times
 for n = 1:1000
     % input vector size is 50, consisting of digits 0, 1 and 2.
-    input = randsrc(1, 100, [0, 1, 2; 0.5, 0.3, 0.2]);
+    input = randsrc(1, 50, [0, 1, 2; 0.5, 0.3, 0.2]);
     % perform encoding of input and generate a compressed string
     compr_strng = encoder(input);
     % Store the length of each compression in the vector count.
@@ -21,9 +21,10 @@ for n = 1:1000
 end
 
 % TODO: Should this be approxiamately E(l)? Can we somehow plot it on histogram?
+countAvg = mean(count);
 efficiency = 0.5*2 + 0.3 + 0.2*2;
 % Plot histogram of vector count
-hist(count/100, 20);
+hist(count/countAvg, 20);
 grid on
 title('Huffmann algorithm');
 ylabel('Frequency');
