@@ -1,35 +1,31 @@
-function data_HAT = decoder(compr_strng)
+function dataHAT = decoder(compr_strng)
 % Decodes the input compressed string according to the
 % of the Huffman algorithm.
 
+    dataHAT = []; 
+   
+    data = [0 0 0]; 
+    [compr_strng, keySet,valueSet, l] = encoder(data);
+
     dataDim = length(compr_strng);
-    data_HAT = []; 
+    % Loop over length of compr_strng, decrementing its size each time 
+    % a code is matched to its correspondind symbol and extracted. 
+    % Loops through each entry in valueSet and extracts first symbols 
+    % in compr_strng of same size, then compares it to the code. If true 
+    % a symbol is added to dataHAT and compr_strng is resized.
     while (dataDim ~= 0)
-        % Loop over the input data and look for the hard coded values for
-        % digits 0, 1 and 2. Delete the relevant chunk from the compr_strng
-        % once its corresponding value has been found
-        
-        if compr_strng(1:1) == '1'
-            % Case where the string has 1 at start.
-            decomp_symb = 1;
-            compr_strng = compr_strng(2: length(compr_strng));
-            dataDim = length(compr_strng); 
-            data_HAT = [data_HAT, decomp_symb]; 
-        else 
-            if compr_strng(2) == '0'
-              % Case where the string has 00 at start.
-              decomp_symb = 0; 
-              compr_strng = compr_strng(3: length(compr_strng));
-              dataDim = length(compr_strng); 
-              data_HAT = [data_HAT, decomp_symb]; 
-            else
-               % The only remaining case according to our coded values.
-               % Case where the string has 01 at start.
-               decomp_symb = 2;
-               compr_strng = compr_strng(3: length(compr_strng));
-               dataDim = length(compr_strng); 
-               data_HAT = [data_HAT, decomp_symb]; 
-            end 
-        end 
-    end 
+        for j=1: length(valueSet)
+            for k=1: l(j)
+                if length(compr_strng) < l(j)
+                    break   
+                else if length(valueSet{j}) == length(compr_strng (1: k)); 
+                    if compr_strng (1: k) == valueSet{j}
+                        dataHAT = [dataHAT, keySet(j)];
+                        compr_strng = compr_strng(k+1: length(compr_strng));
+                        dataDim = length(compr_strng); 
+                    end
+                end
+            end
+        end
+    end
 end

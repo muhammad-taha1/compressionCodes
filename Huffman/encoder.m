@@ -1,28 +1,49 @@
-function compr_strng = encoder(data)
+function [compr_strng, keySet, valueSet, l] = encoder(data)
 % Encodes input data according to Huffman algorithm 
 % and returns the compressed string and the efficiency of the 
 % compressed string
 
-% Hard coded encoded values for digits 0, 1 and 2
-c_1 = '00';
-c_2 = '1';
-c_3 = '01';
+data = [1 1]; 
+p=[0.3 0.23 0.22 0.2 0.05];
 
-compr_strng = [];
+[l, CB] = huffman(p); 
 
-    % Loop over input data and generate the compr_string according to 
-    % the hard coded encoded values and compute the efficiency, based
-    % on hard coded values for probability
-    for i=1:length(data)
-        if data(i) == 0 
-            compr_strng = [compr_strng, c_1];
-        elseif data(i) == 1
-            compr_strng = [compr_strng, c_2];
-        else
-            compr_strng = [compr_strng, c_3];
-        end
+new_entry = ''; 
+CB_str=''; 
+valueSet = {}; 
+
+    % Extract codebook values with their respective length into
+    % an array valueset, each entry in valueSet is in the same 
+    % order to its corresponding symbol in array keySet 
+    
+    for c=1: length(p)
+        for b=1: l(c) 
+            CB_str = num2str(CB(c,b));  
+            new_entry =  [new_entry, CB_str];
+        end 
+        valueSet = [valueSet; new_entry];
+        new_entry = ''; 
     end
+    
+    keySet = [0 1 2 3 4];
+   % mapObj = containers.Map(keySet, valueSet); 
+    
+    % Loop over input data and generate the compr_string according to 
+    % the encoded values genereated in valueSet whic corresponds to 
+    % their symbol in keySet
+    compr_strng = [];
+
+    for i=1:length(data)
+         for j=1:length(keySet)
+             if data(i) == keySet(j)
+                 compr_strng = [compr_strng, valueSet{j}] 
+             end
+         end
+    end 
+
 end
 
+
+        
 
         
