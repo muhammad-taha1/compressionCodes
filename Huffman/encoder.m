@@ -1,10 +1,10 @@
-function [compr_strng, keySet, valueSet, l] = encoder(data)
+function [compr_strng, keySet, valueSet, l] = encoder(data, p)
 % Encodes input data according to Huffman algorithm 
 % and returns the compressed string and the efficiency of the 
 % compressed string
 
-data = [1 1]; 
-p=[0.3 0.23 0.22 0.2 0.05];
+%data = [1 1]; 
+%p=[0.3 0.23 0.22 0.2 0.05];
 
 [l, CB] = huffman(p); 
 

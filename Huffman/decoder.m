@@ -1,11 +1,11 @@
-function dataHAT = decoder(compr_strng)
+function dataHAT = decoder(compr_strng, keySet,valueSet, l)
 % Decodes the input compressed string according to the
 % of the Huffman algorithm.
 
     dataHAT = []; 
    
-    data = [0 0 0]; 
-    [compr_strng, keySet,valueSet, l] = encoder(data);
+    %data = [0 0 0]; 
+    %[compr_strng, keySet,valueSet, l] = encoder(data);
 
     dataDim = length(compr_strng);
     % Loop over length of compr_strng, decrementing its size each time 

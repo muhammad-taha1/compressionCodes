@@ -8,12 +8,12 @@ for n = 1:1000
     % input vector size is 50, consisting of digits 0, 1 and 2.
     input = randsrc(1, 100, [0, 1, 2; 0.5, 0.3, 0.2]);
     % perform encoding of input and generate a compressed string
-    compr_strng = encoder(input);
+    compr_strng = hard_coded_encoder(input);
     % Store the length of each compression in the vector count.
     % This is used to plot the histogram
     count = [count, length(compr_strng)];
     % Decompress the compressed string
-    output = decoder(compr_strng);
+    output = hard_coded_decoder(compr_strng);
     % Perform equality check
     if (~isequal(input, output))
         fprintf('Input vector is not equal to the output vector of decoder!\n');
