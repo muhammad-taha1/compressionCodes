@@ -1,4 +1,4 @@
-function dataHAT = decoder(compr_strng, keySet,valueSet, l)
+function dataHAT = decoder(compr_strng, keySet, valueSet, l)
 % Decodes the input compressed string according to the
 % of the Huffman algorithm.
 

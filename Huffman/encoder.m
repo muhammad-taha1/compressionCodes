@@ -1,4 +1,4 @@
-function [compr_strng, keySet, valueSet, l] = encoder(data, p)
+function [compr_strng, valueSet, l] = encoder(data, p , keySet)
 % Encodes input data according to Huffman algorithm 
 % and returns the compressed string and the efficiency of the 
 % compressed string
@@ -25,7 +25,6 @@ valueSet = {};
         new_entry = ''; 
     end
     
-    keySet = [0 1 2 3 4];
    % mapObj = containers.Map(keySet, valueSet); 
     
     % Loop over input data and generate the compr_string according to 
@@ -36,7 +35,7 @@ valueSet = {};
     for i=1:length(data)
          for j=1:length(keySet)
              if data(i) == keySet(j)
-                 compr_strng = [compr_strng, valueSet{j}] 
+                 compr_strng = [compr_strng, valueSet{j}]; 
              end
          end
     end 
