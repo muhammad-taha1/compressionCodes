@@ -1,5 +1,4 @@
 %% Run-Length Encoder
-
 function IntermediateSymbol  = Run_Length_Encoder(InputData)
  
     tempOutput = []; 
