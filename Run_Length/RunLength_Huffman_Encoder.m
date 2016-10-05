@@ -1,5 +1,5 @@
 function [Compr_Strng] = RunLength_Huffman_Encoder(Sourcedata)
-
+%create an empty array for compressed string
  Compr_Strng = [];
 p = [0.05,0.95*0.05,0.95^2*0.05,0.95^3*0.05,0.95^4*0.05,0.95^5*0.05,0.95^6*0.05,0.95^7];
 
