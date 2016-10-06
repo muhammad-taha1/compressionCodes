@@ -4,7 +4,7 @@ function [Compr_Strng] = Run_Length_EncoderV2(Sourcedata)
 %Matrix with all the code words to be used for compression
 % the row number is equal to the number of 0's preceding a 1, that each code word
 % will represent
-CodeBook = [0 0 0; 0 1;0 1 0;0 1 1;1 0 0;1 0 1;1 1 0;1 1 1];
+CodeBook = [0 0 0;0 0 1;0 1 0;0 1 1;1 0 0;1 0 1;1 1 0;1 1 1];
 %array for compressed string
 Compr_Strng = [];
 %i is the variable used for the condition of the while loop
