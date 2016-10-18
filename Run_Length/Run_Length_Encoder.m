@@ -1,4 +1,4 @@
-function IntermediateSymbol = Run_Length_Encoder(inputData)
+function IntermediateSymbol = Run_Length_Encoder(inputData, maxLength)
 % This encoder looks for a series of 0s until it hits a 1. The number of 0s
 % counted till the point of getting a 1 is the run count for that
 % corresponding run. So, 0001 compresses to 3. Also note that inputData is
@@ -9,12 +9,13 @@ compressedOutput = '';
 % First add a 1 at the end of inputData to ensure that there's a 1 at the
 % end of the file. This is to ensure that we do not encounter a run such as
 % 0000, at the end of the file
-inputData = strcat(inputData, '1');
+inputData = [inputData, 1];
+
 % The process is repeated until input data is empty
 while (~isempty(inputData))
     runCount = 0;
     for bit = 1 : length(inputData)
-        if (inputData(bit) == '0')
+        if (inputData(bit) == 0)
             % if the current bit is 0, increment the run
             runCount = runCount + 1;
         else
@@ -24,6 +25,14 @@ while (~isempty(inputData))
             % The +2 here ensures that we take inputData after the runCount
             % and the 1 ending the run, for the next iteration
             inputData = inputData((runCount + 2) : end);
+            break;
+        end
+        
+        if (runCount == maxLength)
+            % break out of loop if runCount equals maxLength
+            compressedOutput = strcat(compressedOutput, num2str(runCount));
+            % we do +1 here since there's no 1 ending the run here
+            inputData = inputData((runCount + 1) : end);
             break;
         end
         
