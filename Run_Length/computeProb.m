@@ -24,14 +24,14 @@ for num = 1 : length(runLengthEncodedStr)
         % keyset
         keySet = [keySet, runLengthEncodedStr(num)];
         
-        if (str2num(runLengthEncodedStr(num)) == max_run_length)
+        if (runLengthEncodedStr(num) == max_run_length)
             % no ones here
-            numOfZeros = str2num(runLengthEncodedStr(num));
+            numOfZeros = runLengthEncodedStr(num);
             prob = probOfZero^numOfZeros;
             probVector = [probVector, prob];
         else
             % get number of zeros for each char
-            numOfZeros = str2num(runLengthEncodedStr(num));
+            numOfZeros = runLengthEncodedStr(num);
             % Here we assume that the probability to get 0 is 0.95
             prob = probOfZero^numOfZeros*(1 - probOfZero);
             probVector = [probVector, prob];

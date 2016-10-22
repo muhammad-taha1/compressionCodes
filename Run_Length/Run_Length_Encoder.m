@@ -5,7 +5,7 @@ function IntermediateSymbol = Run_Length_Encoder(inputData, maxLength)
 % string of binary, entered via quotes. Hitting a single 1 gives the
 % compression as 0.
 
-compressedOutput = '';
+compressedOutput = [];
 % First add a 1 at the end of inputData to ensure that there's a 1 at the
 % end of the file. This is to ensure that we do not encounter a run such as
 % 0000, at the end of the file
@@ -21,7 +21,7 @@ while (~isempty(inputData))
         else
             % as soon as we hit a 1, add the current run to compressedOutput
             % Remove the run from inputData and break out of the for loop
-            compressedOutput = strcat(compressedOutput, num2str(runCount));
+            compressedOutput = [compressedOutput, runCount];
             % The +2 here ensures that we take inputData after the runCount
             % and the 1 ending the run, for the next iteration
             inputData = inputData((runCount + 2) : end);
@@ -30,7 +30,7 @@ while (~isempty(inputData))
         
         if (runCount == maxLength)
             % break out of loop if runCount equals maxLength
-            compressedOutput = strcat(compressedOutput, num2str(runCount));
+            compressedOutput = [compressedOutput, runCount];
             % we do +1 here since there's no 1 ending the run here
             inputData = inputData((runCount + 1) : end);
             break;
