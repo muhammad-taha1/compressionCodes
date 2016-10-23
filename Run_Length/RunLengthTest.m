@@ -4,7 +4,8 @@ function RunLengthTest
 % data
 max_run_length = 20;
 probOfZeroes = 0.95;
-inputData = rand(1,32)>probOfZeroes
+%inputData = rand(1,32)>probOfZeroes
+inputData = MarkovSource(32, 0.85, 0.7)
 encodedRes = Run_Length_Encoder(inputData, max_run_length)%('000000101010101011010111001')
 
 % calculate prob for Huffman
