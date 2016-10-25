@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-%% Run-Length Encoder
-% Try 3, 7, 15, 31 codes, insert one at the end of the code,  
-% Convert into ASCII code the nfedd it into huffmaan. 
-=======
 function IntermediateSymbol = Run_Length_Encoder(inputData, maxLength)
 % This encoder looks for a series of 0s until it hits a 1. The number of 0s
 % counted till the point of getting a 1 is the run count for that
 % corresponding run. So, 0001 compresses to 3. Also note that inputData is
 % string of binary, entered via quotes. Hitting a single 1 gives the
 % compression as 0.
->>>>>>> 90591982315603cb295fe45640411d8d086669b5
 
 compressedOutput = [];
 % First add a 1 at the end of inputData to ensure that there's a 1 at the
