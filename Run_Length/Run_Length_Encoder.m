@@ -1,37 +1,50 @@
+<<<<<<< HEAD
 %% Run-Length Encoder
 % Try 3, 7, 15, 31 codes, insert one at the end of the code,  
 % Convert into ASCII code the nfedd it into huffmaan. 
+=======
+function IntermediateSymbol = Run_Length_Encoder(inputData, maxLength)
+% This encoder looks for a series of 0s until it hits a 1. The number of 0s
+% counted till the point of getting a 1 is the run count for that
+% corresponding run. So, 0001 compresses to 3. Also note that inputData is
+% string of binary, entered via quotes. Hitting a single 1 gives the
+% compression as 0.
+>>>>>>> 90591982315603cb295fe45640411d8d086669b5
 
-function IntermediateSymbol  = Run_Length_Encoder(InputData)
- 
-    tempOutput = []; 
-    count =1; 
+compressedOutput = [];
+% First add a 1 at the end of inputData to ensure that there's a 1 at the
+% end of the file. This is to ensure that we do not encounter a run such as
+% 0000, at the end of the file
+inputData = [inputData, 1];
 
-    prev = InputData(1); 
- % If length is one then it returns just 1 + string value, 
- % otherwise loop over the InputData string 
-    
-    if(length(InputData) == 1)
-        tempOutput = [tempOutput; strcat(num2str(count), prev)];
-    else
- %  Check if current is equal to previous at indices n and n-1 of InputData
- %  If equal increment the count and index of current 
- %  If not, add count and InputData(n) char to output, and reset count to 1. 
- 
-        for n = 2: length(InputData)           
-            current = InputData(n);
-            if (current == prev) 
-                count = count + 1; 
-            else
-                tempOutput = [tempOutput; strcat(num2str(count), prev)]; 
-                count = 1; 
-            end
-            prev = current; 
-
+% The process is repeated until input data is empty
+while (~isempty(inputData))
+    runCount = 0;
+    for bit = 1 : length(inputData)
+        if (inputData(bit) == 0)
+            % if the current bit is 0, increment the run
+            runCount = runCount + 1;
+        else
+            % as soon as we hit a 1, add the current run to compressedOutput
+            % Remove the run from inputData and break out of the for loop
+            compressedOutput = [compressedOutput, runCount];
+            % The +2 here ensures that we take inputData after the runCount
+            % and the 1 ending the run, for the next iteration
+            inputData = inputData((runCount + 2) : end);
+            break;
         end
-
-        tempOutput = [tempOutput; strcat(num2str(count), prev)];
+        
+        if (runCount == maxLength)
+            % break out of loop if runCount equals maxLength
+            compressedOutput = [compressedOutput, runCount];
+            % we do +1 here since there's no 1 ending the run here
+            inputData = inputData((runCount + 1) : end);
+            break;
+        end
+        
     end
-    IntermediateSymbol = tempOutput;
+end
 
-end 
+IntermediateSymbol = compressedOutput;
+
+end
