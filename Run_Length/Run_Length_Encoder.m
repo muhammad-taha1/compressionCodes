@@ -1,4 +1,6 @@
 %% Run-Length Encoder
+% Try 3, 7, 15, 31 codes, insert one at the end of the code,  
+% Convert into ASCII code the nfedd it into huffmaan. 
 
 function IntermediateSymbol  = Run_Length_Encoder(InputData)
  
