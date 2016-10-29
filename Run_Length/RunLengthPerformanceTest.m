@@ -4,7 +4,7 @@ function RunLengthPerformanceTest
 % data
 max_run_length = [3, 4, 6, 7, 9, 13, 15, 20, 25, 32];
 probOfZeroes = 0.9;
-iterationsPerMRL = 5;
+iterationsPerMRL = 100;
 
 %Variables for EofL testing
 inputSize=[];
@@ -84,7 +84,7 @@ for mrl_idx = 1 : length(max_run_length)
         for i=0:(max_run_length(mrl_idx))
             
             if(i~= max_run_length(mrl_idx))
-                Huffman_probs = [Huffman_probs,(probOfZeroes^i)*probOfZeroes];
+                Huffman_probs = [Huffman_probs,(probOfZeroes^i)*(1-probOfZeroes)];
             end
             
             if(i==max_run_length(mrl_idx))
