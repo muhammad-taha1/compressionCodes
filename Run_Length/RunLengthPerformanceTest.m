@@ -2,9 +2,9 @@ function RunLengthPerformanceTest
 % run-length encoding
 % Note: max_run_length should be less than or equal to the size of input
 % data
-max_run_length = [3, 4, 6, 7, 9, 13, 15, 20, 25, 32];
-probOfZeroes = 0.9;
-iterationsPerMRL = 100;
+max_run_length = [3, 7, 15, 31, 63];
+probOfZeroes = 0.85;
+iterationsPerMRL = 1;
 
 %Variables for EofL testing
 inputSize=[];
@@ -51,6 +51,8 @@ for mrl_idx = 1 : length(max_run_length)
         %Expected Length Testing
         B = dec2bin(encodedRes);
         
+        % TODO: n needs to vary here. Need to check notes from Shorouq's
+        % notebook to see what n should be here
         [m,n] = size(B);
         inputSize=[inputSize,length(inputData)];
         RLcompSize=[RLcompSize,m*n];
@@ -142,9 +144,9 @@ end
 
 % Plot for E-L comparison
 figure
-plot(max_run_length, RL_EToPlot);
+stem(max_run_length, RL_EToPlot);
 hold on
-plot(max_run_length, HuffmanELToPlot);
+stem(max_run_length, HuffmanELToPlot);
 grid on
 legend('Run-Length', 'Run-Length + Huffman');
 xlabel('max run-length size');
@@ -153,9 +155,9 @@ title(strcat('E(L) comparison between Run-Length and Run-Length+Huffman, probOfZ
 
 % Plot for E-L comparison
 figure
-plot(max_run_length, RLcompressionRatioToPlot);
+stem(max_run_length, RLcompressionRatioToPlot);
 hold on
-plot(max_run_length, HuffmanCompressionRatioToPlot);
+stem(max_run_length, HuffmanCompressionRatioToPlot);
 grid on
 legend('Run-Length', 'Run-Length + Huffman');
 xlabel('max run-length size');
