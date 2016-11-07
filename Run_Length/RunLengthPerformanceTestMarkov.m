@@ -1,10 +1,11 @@
-function RunLengthPerformanceTest
+function RunLengthPerformanceTestMarkov
 % run-length encoding
 % Note: max_run_length should be less than or equal to the size of input
 % data
 max_run_length = [3, 7, 15, 31, 63];
-probOfZeroes = 0.99;
-iterationsPerMRL = 100;
+probOfZeroAtZero = 0.85;
+probOfOneAtOne = 0.7;
+iterationsPerMRL = 1;
 
 %Variables for EofL testing
 inputSize=[];
@@ -27,11 +28,11 @@ for mrl_idx = 1 : length(max_run_length)
     HuffmanCompressionRatio = 0;
     
     for j = 1 : iterationsPerMRL
-        inputData = rand(1,10^6) > probOfZeroes;
+        inputData = MarkovSource(10, probOfZeroAtZero, probOfOneAtOne);%rand(1,10^6) > probOfZeroes;
         encodedRes = Run_Length_Encoder(inputData, max_run_length(mrl_idx));%('000000101010101011010111001')
         
         % calculate prob for Huffman
-        [p, keySet] = computeProb(encodedRes, probOfZeroes, max_run_length(mrl_idx));
+        [p, keySet] = computeProbMarkov(encodedRes, probOfZeroAtZero, probOfOneAtOne, max_run_length(mrl_idx));
         
         [p, idx] = sort(p,'descend');
         sortedKeySet = [];
