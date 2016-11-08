@@ -3,7 +3,7 @@
 % with code
 function EntropyRate = MarkovEfficiencyCalc(ProbZeroAtZero, ProbOneAtOne)
 %%
-ProbZeroAtOne =1 - ProbOneAtOne; 
+ProbZeroAtOne = 1 - ProbOneAtOne; 
 ProbOneAtZero = 1 - ProbZeroAtZero; 
 
 pieZero = ProbZeroAtOne / (ProbZeroAtOne + ProbOneAtZero); 
