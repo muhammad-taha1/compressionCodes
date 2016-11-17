@@ -123,7 +123,6 @@ for mrl_idx = 1 : length(max_run_length)
         %E(l) calculation for Huffman
         for i=1:(max_run_length((mrl_idx))+1)
             
-            p2(i)*sortedRL_lengths(i)
             HuffmanEofL =  HuffmanEofL+(l2(i)/sortedRL_lengths(i))*p2(i);
             
         end
