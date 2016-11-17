@@ -2,9 +2,9 @@ function RunLengthPerformanceTest
 % run-length encoding
 % Note: max_run_length should be less than or equal to the size of input
 % data
-max_run_length = 31;%[3, 7, 15, 31, 63];
-probOfZeroes = 0.99;
-iterationsPerMRL = 1;
+max_run_length = [3, 7, 15, 31, 63];
+probOfZeroes = 0.8;
+iterationsPerMRL = 100;
 
 %Variables for EofL testing
 inputSize=[];
@@ -61,7 +61,7 @@ for mrl_idx = 1 : length(max_run_length)
         
         HuffmanCompSize = [HuffmanCompSize,length(HuffmanEncoded)];
         % percentage of compression achieved through Huffman
-        HuffmanCompressionRatio = HuffmanCompressionRatio +(length(HuffmanEncoded))/(length(inputData));
+        HuffmanCompressionRatio = HuffmanCompressionRatio +(length(HuffmanEncoded)/length(inputData));
         
         
         EofL = 0;
@@ -120,14 +120,17 @@ for mrl_idx = 1 : length(max_run_length)
         [l2,CB2] = huffman(p2);
         
         HuffmanEofL=0;
+        avgOfRuns = 0;
         %E(l) calculation for Huffman
         for i=1:(max_run_length((mrl_idx))+1)
-            
-            p2(i)*sortedRL_lengths(i)
-            HuffmanEofL =  HuffmanEofL+(l2(i)/sortedRL_lengths(i))*p2(i);
+            % avg of compression after huffman
+            avgOfRuns = avgOfRuns + l2(i)*p2(i);
             
         end
-        
+        for i=1:(max_run_length((mrl_idx))+1)
+            % each run in sortedRL_lengths is compressed by avgOfRuns
+            HuffmanEofL =  avgOfRuns/sortedRL_lengths(i);
+        end
         HuffmanEL = HuffmanEL + HuffmanEofL;
     end
     % average out all variables
