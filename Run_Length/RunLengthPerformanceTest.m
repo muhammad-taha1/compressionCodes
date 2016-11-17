@@ -3,8 +3,8 @@ function RunLengthPerformanceTest
 % Note: max_run_length should be less than or equal to the size of input
 % data
 max_run_length = [3, 7, 15, 31, 63];
-probOfZeroes = 0.8;
-iterationsPerMRL = 100;
+probOfZeroes = 0.95;
+iterationsPerMRL = 20;
 
 %Variables for EofL testing
 inputSize=[];
@@ -64,21 +64,21 @@ for mrl_idx = 1 : length(max_run_length)
         HuffmanCompressionRatio = HuffmanCompressionRatio +(length(HuffmanEncoded)/length(inputData));
         
         
-        EofL = 0;
+        avgRunRL = 0;
         %E(l) calculation for Run Length
         for i=0:max_run_length(mrl_idx)
             
             if(i~=max_run_length(mrl_idx))
-                EofL =  EofL+((i+1)*(probOfZeroes^i)*(1-probOfZeroes));
+                avgRunRL =  avgRunRL+((i+1)*(probOfZeroes^i)*(1-probOfZeroes));
             end
             
             if i==max_run_length(mrl_idx)
-                EofL =  EofL+(i*(probOfZeroes^i));
+                avgRunRL =  avgRunRL+(i*(probOfZeroes^i));
             end
         end
         % EofL here is essentially length the avg of each run (prob of each
         % run*run-length)
-        RL_E = RL_E + n/EofL;
+        RL_E = RL_E + n/avgRunRL;
         
         %probability calculator for all huffman symbols that will be used to
         %compute E(l)
@@ -131,7 +131,8 @@ for mrl_idx = 1 : length(max_run_length)
             % each run in sortedRL_lengths is compressed by avgOfRuns
             HuffmanEofL =  avgOfRuns/sortedRL_lengths(i);
         end
-        HuffmanEL = HuffmanEL + HuffmanEofL;
+        
+        HuffmanEL = HuffmanEL + avgOfRuns/avgRunRL;
     end
     % average out all variables
     RLcompressionRatio = RLcompressionRatio/iterationsPerMRL;
