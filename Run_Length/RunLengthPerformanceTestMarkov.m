@@ -28,7 +28,7 @@ for mrl_idx = 1 : length(max_run_length)
     HuffmanCompressionRatio = 0;
     
     for j = 1 : iterationsPerMRL
-        inputData = MarkovSource(10, probOfZeroAtZero, probOfOneAtOne);%rand(1,10^6) > probOfZeroes;
+        inputData = MarkovSource(10^4, probOfZeroAtZero, probOfOneAtOne);%rand(1,10^6) > probOfZeroes;
         encodedRes = Run_Length_Encoder(inputData, max_run_length(mrl_idx));%('000000101010101011010111001')
         
         % calculate prob for Huffman
