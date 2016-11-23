@@ -3,8 +3,8 @@ function RunLengthPerformanceTest
 % Note: max_run_length should be less than or equal to the size of input
 % data
 max_run_length = [3, 7, 15, 31, 63];
-probOfZeroes = 0.95;
-iterationsPerMRL = 20;
+probOfZeroes = 0.80;
+iterationsPerMRL = 31;
 
 %Variables for EofL testing
 inputSize=[];
@@ -168,7 +168,7 @@ grid on
 legend('Run-Length', 'Run-Length + Huffman');
 xlabel('max run-length size');
 ylabel('Compression ratio');
-title(strcat('Compression ratio comparison between Run-Length and Run-Length+Huffman, probOfZeroes = ',num2str(probOfZeroes)));
+title(strcat('Compression ratio comparison, p0 = ',num2str(probOfZeroes)));
 % hist(HuffmanCompSize/1000, 20);
 % grid on
 % title('Huffman compression efficiency');

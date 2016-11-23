@@ -1,19 +1,72 @@
 function imgCompression()
 %% Create Raw Image 
-% 256 by 256 pixels binary image that has a sqaure 90 by 90 pixels square
+% 512 by 512 pixels binary image that has a sqaure 180 by 180 pixels square
 % on left
-rawImg = [];  
-for i= 1: 256 
-    for j=1: 256 
-        if (((i == 10) || (i == 100)) && ((j>=10) && (j<=100))) 
+rawImg = ones(512,512);  
+
+for i= 1: 512 
+    for j=1: 512 
+        if (((i == 20) || (i == 200)) && ((j>=20) && (j<=200))) 
             rawImg(i,j) = 0; 
-        elseif ( ((j == 10) || (j == 100)) && ((i>=10) && (i<=100)))
+        elseif ( ((j == 20) || (j == 200)) && ((i>=20) && (i<=200)))
             rawImg(i,j) = 0;
         else 
             rawImg(i,j) = 1; 
         end
+        
+        % random tilted square
+        if (abs(i-10) + abs(j-400) == 180)
+            rawImg(i,j) = 0;
+        end
+        
+        % rectangle from 180-250 at i and 10-100 in j
+        if (((i == 360) || (i == 500)) && ((j>=20) && (j<=200))) 
+            rawImg(i,j) = 0; 
+        elseif ( ((j == 20) || (j == 200)) && ((i>=360) && (i<=500)))
+            rawImg(i,j) = 0;
+        end
+        
     end
 end
+
+circImg = ones(512, 512);
+for i= 1: 512
+    for j=1: 512
+        % create bolded circle in of radius 50 pixels, centered at 90,100
+        if ((i-180)^2 + (j-200)^2 <= 100^2)
+            circImg(i,j) = 0;
+        end
+        % remove all inner circle pixels
+        if ((i-180)^2 + (j-200)^2 <= 98^2)
+            circImg(i,j) = 1;
+        end
+        
+        % create another circle in of radius 20 pixels, centered at 200,200
+        if ((i-430)^2 + (j-100)^2 <= 40^2)
+            circImg(i,j) = 0;
+        end
+        % remove all inner circle pixels
+        if ((i-430)^2 + (j-100)^2 <= 39^2)
+            circImg(i,j) = 1;
+        end
+        
+        
+        % create another circle in of radius 30 pixels, centered at 200,200
+        % circle within square
+        if ((i-400)^2 + (j-400)^2 <= 60^2)
+            circImg(i,j) = 0;
+        end
+        % remove all inner circle pixels
+        if ((i-400)^2 + (j-400)^2 <= 59^2)
+            circImg(i,j) = 1;
+        end
+    end
+end
+
+rawImg = mod((rawImg + circImg), 2);
+
+% mod2 addition inverts img, so invert it
+rawImg = ~rawImg;
 
  
 %% Image size
