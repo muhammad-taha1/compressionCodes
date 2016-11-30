@@ -2,7 +2,7 @@ function [RLcompressionRatioToPlot, HuffmanCompressionRatioToPlot] = RunLengthPe
 % run-length encoding
 % Note: max_run_length should be less than or equal to the size of input
 % data
-max_run_length = 15;%[3, 7, 15, 31, 63];
+max_run_length = [3, 7, 15, 31, 63];
 %probOfZeroes = 0.80;
 iterationsPerMRL = 50;
 
@@ -149,26 +149,26 @@ for mrl_idx = 1 : length(max_run_length)
 end
 
 % Plot for E-L comparison
-% figure
-% stem(max_run_length, RL_EToPlot);
-% hold on
-% stem(max_run_length, HuffmanELToPlot);
-% grid on
-% legend('Run-Length', 'Run-Length + Huffman');
-% xlabel('max run-length size');
-% ylabel('E(L)');
-% title(strcat('E(L) comparison between Run-Length and Run-Length+Huffman, probOfZeroes = ',num2str(probOfZeroes)));
+figure
+stem(max_run_length, RL_EToPlot);
+hold on
+stem(max_run_length, HuffmanELToPlot);
+grid on
+legend('Run-Length', 'Run-Length + Huffman');
+xlabel('max run-length size');
+ylabel('E(L)');
+title(strcat('E(L) comparison, file size = 10000, p0 = ',num2str(probOfZeroes)));
 % 
 % % Plot for E-L comparison
-% figure
-% stem(max_run_length, RLcompressionRatioToPlot);
-% hold on
-% stem(max_run_length, HuffmanCompressionRatioToPlot);
-% grid on
-% legend('Run-Length', 'Run-Length + Huffman');
-% xlabel('max run-length size');
-% ylabel('Compression ratio');
-% title(strcat('Compression ratio comparison, file size = 10000, p0 = ',num2str(probOfZeroes)));
+figure
+stem(max_run_length, RLcompressionRatioToPlot);
+hold on
+stem(max_run_length, HuffmanCompressionRatioToPlot);
+grid on
+legend('Run-Length', 'Run-Length + Huffman');
+xlabel('max run-length size');
+ylabel('Compression ratio');
+title(strcat('Compression ratio comparison, file size = 10000, p0 = ',num2str(probOfZeroes)));
 % hist(HuffmanCompSize/1000, 20);
 % grid on
 % title('Huffman compression efficiency');
